@@ -893,6 +893,8 @@ inferFinalPatternType: function() {
   
   // Exportation au format NFT
 exportNFT: function() {
+    this.metadata.rendering.background.type = 
+      this.colorSettings.backgroundNoise ? "noise" : "flat";
     if (!this.videoBlob) {
         alert(document.documentElement.lang === 'fr' ? 
               'Veuillez d\'abord enregistrer une vidéo avant de créer un NFT.' : 
@@ -1256,6 +1258,17 @@ function captureFrameForPreview() {
     const frame = previewCtx.getImageData(0, 0, 150, 150);
     gifPreviewFrames.push(frame);
 
+document.getElementById('toggleNoise').addEventListener('change', function(e) {
+  GameOfLife.colorSettings.backgroundNoise = e.target.checked;
+  
+  // تحديث الميتاداتا مباشرة
+  GameOfLife.metadata.rendering.background.type = 
+    GameOfLife.colorSettings.backgroundNoise ? "noise" : "flat";
+  
+  GameOfLife.drawFrame(ctx);
+  console.log("تشويش الخلفية:", GameOfLife.metadata.rendering.background.type);
+});
+	
     // الاحتفاظ بآخر 30 إطارًا فقط
     if (gifPreviewFrames.length > maxPreviewFrames) {
         gifPreviewFrames.shift();
