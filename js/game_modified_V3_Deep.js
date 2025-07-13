@@ -1130,8 +1130,8 @@ document.getElementById('load-visual-preset').onclick = function() {
   document.getElementById('generate').onclick = function() {
     GameOfLife.grid = GameOfLife.createGrid();
     GameOfLife.initialGrid = GameOfLife.grid.map(row => [...row]);
-	GameOfLife.nftName = GameOfLife.generateSimpleGlyphName(GameOfLife.initialGrid, 1);
-	GameOfLife.metadata.name = GameOfLife.nftName;
+    GameOfLife.nftName = GameOfLife.generateSerialName(1);
+    GameOfLife.metadata.name = GameOfLife.nftName;
     GameOfLife.nextGrid = GameOfLife.createGrid(0);
     GameOfLife.ageGrid = GameOfLife.createGrid(0);
     GameOfLife.generation = 0;
