@@ -84,9 +84,6 @@ const GameOfLife = {
     this.off.height = canvas.height;
     this.offCtx = this.off.getContext('2d', { willReadFrequently: true });
   },
-  
-  
-
 
  // Initialization of metadata
 initMetadata: function() {
@@ -1196,12 +1193,16 @@ document.getElementById('load-visual-preset').onclick = function() {
   };
   
   document.getElementById('download-nft').onclick = function() {
-	const userIndex = document.getElementById('nft-index').value;
-	GameOfLife.nftName = GameOfLife.generateSerialName(userIndex);
-	GameOfLife.metadata.name = GameOfLife.nftName;
- 
-    GameOfLife.exportNFT();
-  };
+  const nextIndex = getNextNFTIndex();
+  GameOfLife.nftName = GameOfLife.generateSerialName(nextIndex);
+  GameOfLife.metadata.name = GameOfLife.nftName;
+
+  const indexInput = document.getElementById('nft-index');
+  if (indexInput) indexInput.value = nextIndex;
+
+  GameOfLife.exportNFT();
+};
+
   
   document.getElementById('speed').oninput = function(e) {
     GameOfLife.updateSpeed(e.target.value);
@@ -1370,4 +1371,10 @@ function hexToRgba(hex, alpha) {
   const g = (bigint >> 8) & 255;
   const b = bigint & 255;
   return `rgba(${r},${g},${b},${alpha})`;
+}
+function getNextNFTIndex() {
+  const key = "lastNFTIndex";
+  const current = parseInt(localStorage.getItem(key)) || 1;
+  localStorage.setItem(key, current + 1);
+  return current;
 }
