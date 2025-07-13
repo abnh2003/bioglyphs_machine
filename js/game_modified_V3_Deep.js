@@ -89,7 +89,11 @@ const GameOfLife = {
 initMetadata: function() {
 	const userIndexInput = document.getElementById('nft-index');
 	const index = userIndexInput ? userIndexInput.value : 1;
-	this.nftName = this.generateSerialName(index);
+	const index = parseInt(userIndexInput?.value);
+         if (!isNaN(index)) {
+            this.nftName = this.generateSerialName(index);
+        }
+
 
 	this.metadata = {
 	  name: this.nftName,
