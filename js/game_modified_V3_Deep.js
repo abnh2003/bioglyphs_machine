@@ -1006,7 +1006,9 @@ document.addEventListener('DOMContentLoaded', function() {
     <option value="">اختر إعدادًا بصريًا</option>
   </select>
   <button id="load-visual-preset">📂 تحميل بصري</button>
+  <button id="reset-nft-counter" style="margin-left: 10px;">🔁 إعادة الترقيم</button>
 `;
+
 
     controlContainer.appendChild(gridControl);
   }
@@ -1047,6 +1049,14 @@ updateVisualPresetList();
  //   `cellAlpha: ${settings.cellAlpha}\n` +
     `backgroundNoise: ${settings.backgroundNoise}`;
 }
+document.getElementById('reset-nft-counter').onclick = function() {
+  if (confirm("هل تريد فعلاً إعادة الرقم التسلسلي إلى 1؟")) {
+    localStorage.setItem("lastNFTIndex", 1);
+    const indexInput = document.getElementById('nft-index');
+    if (indexInput) indexInput.value = 1;
+    alert("تمت إعادة الترقيم. الرقم التالي سيكون 1.");
+  }
+};
 
   document.getElementById('apply-grid').onclick = function() {
     const newGridSize = parseInt(document.getElementById('grid-size').value);
