@@ -982,10 +982,6 @@ exportFinalAsCells: function() {
 // Initialisation du jeu lorsque le DOM est chargé
 document.addEventListener('DOMContentLoaded', function() {
   // ==== عناصر تحكم في حجم الشبكة والخلية ====
-  if (indexInput) {
-    const last = parseInt(localStorage.getItem("lastNFTIndex")) || 1;
-    indexInput.value = last;
-  }
   const controlContainer = document.querySelector('.controls');
   if (controlContainer) {
     const gridControl = document.createElement('div');
