@@ -1126,21 +1126,24 @@ document.getElementById('load-visual-preset').onclick = function() {
   // Premier rendu
   GameOfLife.drawFrame(ctx);
   
-  // Événements des boutons
-  document.getElementById('generate').onclick = function() {
-    GameOfLife.grid = GameOfLife.createGrid();
-    GameOfLife.initialGrid = GameOfLife.grid.map(row => [...row]);
-    GameOfLife.nftName = GameOfLife.generateSerialName(1);
-    GameOfLife.metadata.name = GameOfLife.nftName;
-    GameOfLife.nextGrid = GameOfLife.createGrid(0);
-    GameOfLife.ageGrid = GameOfLife.createGrid(0);
-    GameOfLife.generation = 0;
-    GameOfLife.generationHistory = [];
-    GameOfLife.frame = 0;
-    GameOfLife.drawFrame(ctx);
-    GameOfLife.updateGenerationInfo();
-    GameOfLife.updateComparisonResult();
-  };
+ document.getElementById('generate').onclick = function() {
+  GameOfLife.grid = GameOfLife.createGrid();
+  GameOfLife.initialGrid = GameOfLife.grid.map(row => [...row]);
+
+  const userIndex = document.getElementById('nft-index')?.value || 1;
+  GameOfLife.nftName = GameOfLife.generateSerialName(userIndex);
+  GameOfLife.metadata.name = GameOfLife.nftName;
+
+  GameOfLife.nextGrid = GameOfLife.createGrid(0);
+  GameOfLife.ageGrid = GameOfLife.createGrid(0);
+  GameOfLife.generation = 0;
+  GameOfLife.generationHistory = [];
+  GameOfLife.frame = 0;
+  GameOfLife.drawFrame(ctx);
+  GameOfLife.updateGenerationInfo();
+  GameOfLife.updateComparisonResult();
+};
+
   
   document.getElementById('start-stop').onclick = function() {
     GameOfLife.running = !GameOfLife.running;
