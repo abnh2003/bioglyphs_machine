@@ -982,6 +982,10 @@ exportFinalAsCells: function() {
 // Initialisation du jeu lorsque le DOM est chargé
 document.addEventListener('DOMContentLoaded', function() {
   // ==== عناصر تحكم في حجم الشبكة والخلية ====
+  if (indexInput) {
+    const last = parseInt(localStorage.getItem("lastNFTIndex")) || 1;
+    indexInput.value = last;
+  }
   const controlContainer = document.querySelector('.controls');
   if (controlContainer) {
     const gridControl = document.createElement('div');
@@ -1193,15 +1197,25 @@ document.getElementById('load-visual-preset').onclick = function() {
   };
   
   document.getElementById('download-nft').onclick = function() {
-  const nextIndex = getNextNFTIndex();
-  GameOfLife.nftName = GameOfLife.generateSerialName(nextIndex);
-  GameOfLife.metadata.name = GameOfLife.nftName;
-
   const indexInput = document.getElementById('nft-index');
-  if (indexInput) indexInput.value = nextIndex;
+  let index = parseInt(indexInput?.value);
+
+  if (isNaN(index) || index < 1) {
+    // إدخال غير صالح → استخدم الرقم المحفوظ
+    index = parseInt(localStorage.getItem("lastNFTIndex")) || 1;
+  }
+
+  // تحديث الرقم المحفوظ في localStorage
+  localStorage.setItem("lastNFTIndex", index + 1);
+
+  // توليد الاسم وإدخاله في الحقل
+  GameOfLife.nftName = GameOfLife.generateSerialName(index);
+  GameOfLife.metadata.name = GameOfLife.nftName;
+  if (indexInput) indexInput.value = index;
 
   GameOfLife.exportNFT();
 };
+
 
   
   document.getElementById('speed').oninput = function(e) {
