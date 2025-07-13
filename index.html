@@ -167,7 +167,8 @@
 	  <button id="export-cells">📥 Télécharger le motif final (.cells)</button>
 
     </div>
-    
+    <button id="reset-nft-counter" style="margin-left: 10px;">🔁 إعادة الترقيم</button>
+
     <div class="stats">
       <h3>إحصائيات المحاكاة:</h3>
       <div id="generation-info">الجيل الحالي: 0 | المخزّن: 0</div>
@@ -236,8 +237,10 @@
     // نملأ بالأصفار
     idxInput.value = String(num).padStart(4, '0');
   }
+
 </script>
  </script>
+	
   <script src="js/lib/jszip.min.js"></script>
    <script src="js/game_modified_V3_Deep.js"></script>
 
